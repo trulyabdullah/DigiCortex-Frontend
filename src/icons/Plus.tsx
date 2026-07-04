@@ -1,6 +1,6 @@
-import { IconClasses, type IconProp } from "./IconInterface";
+import { IconClasses, type IconProp } from "./Interface";
 
-export const PlusIcon = ({ size }: IconProp) => {
+export const Plus = ({ size }: IconProp) => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
