@@ -1,21 +1,52 @@
-import { useState } from "react";
+import axios from "axios";
+import { useRef, useState } from "react";
+import { BACKEND_URL } from "../config";
+import { ErrorToast } from "./ErrorToast";
+import { SuccessOverlay } from "./SuccessOverlay";
 
 export function SignUp() {
 	const [isLoading, setIsLoading] = useState(false);
+	const [showSuccess, setShowSuccess] = useState(false);
+	const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const emailRef = useRef<HTMLInputElement>(null);
+	const passwordRef = useRef<HTMLInputElement>(null);
+
+	const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setIsLoading(true);
-
-		// Simulate a backend registration delay (e.g., 2.5 seconds)
-		setTimeout(() => {
+		setErrorMsg(null);
+		const email = emailRef.current?.value;
+		const password = passwordRef.current?.value;
+		if (!email || !password) {
 			setIsLoading(false);
-			// Add success logic here later
-		}, 2500);
+			return;
+		}
+		setIsLoading(true);
+		try {
+			await axios.post(`${BACKEND_URL}/api/v1/signup`, {
+				email: email,
+				password: password,
+			});
+			setShowSuccess(true);
+			setTimeout(() => {
+				console.log("Routing to /signin");
+			}, 2000);
+		} catch (err) {
+			setErrorMsg("Connection failed or user exists.");
+			setIsLoading(false);
+		}
+		setIsLoading(false);
 	};
 
 	return (
 		<main className="min-h-screen bg-[#F7F8FC] flex items-center justify-center p-6">
+			{errorMsg && (
+				<ErrorToast
+					message={errorMsg}
+					onClose={() => setErrorMsg(null)}
+				/>
+			)}
+			{showSuccess && <SuccessOverlay />}
 			<div className="w-full max-w-md relative">
 				<div className="absolute -top-5 -right-4 z-10 rotate-6 rounded-sm border-[3px] border-black bg-[#FDE047] px-4 py-1 text-sm font-black uppercase tracking-widest text-black shadow-[4px_4px_0px_black] transition-transform hover:rotate-12">
 					DIGICORTEX
@@ -37,6 +68,7 @@ export function SignUp() {
 								Email
 							</label>
 							<input
+								ref={emailRef}
 								id="email"
 								type="email"
 								name="email"
@@ -55,6 +87,7 @@ export function SignUp() {
 								Password
 							</label>
 							<input
+								ref={passwordRef}
 								id="password"
 								type="password"
 								name="password"
@@ -73,15 +106,15 @@ export function SignUp() {
 									className={`font-bold text-black underline decoration-2 underline-offset-2 transition-colors ${isLoading ? "" : "hover:bg-[#FDE047]"}`}
 								>
 									fun
-								</span>{" "}
+								</span>
 							</span>
 						</label>
 						<button
 							type="submit"
-							disabled={isLoading}
+							disabled={isLoading || showSuccess}
 							className={`mt-4 w-full rounded-sm border-2 border-black py-4 text-base font-bold text-black transition-all duration-200 flex items-center justify-center gap-3
-                                ${
-									isLoading
+								${
+									isLoading || showSuccess
 										? "bg-neutral-300 cursor-not-allowed translate-y-0 shadow-none"
 										: "bg-[#F472B6] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_black] active:translate-y-0 active:shadow-none"
 								}`}
