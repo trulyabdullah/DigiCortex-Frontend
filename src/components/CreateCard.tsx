@@ -9,46 +9,47 @@ interface CreateCardProp {
 
 export function CreateCard({ onClose }: CreateCardProp) {
 	return (
-		<div className="w-10/12 max-w-lg flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-2xl">
-			<div className="flex items-center gap-1 sm:gap-2">
-				<div className="flex items-center flex-1 gap-1">
-					<div className="rounded-full p-2 text-gray-500">
+		<div className="flex w-full max-w-lg flex-col gap-5 rounded-md border-[3px] border-black bg-white p-6 shadow-[10px_10px_0px_#E9D5FF] transition-all duration-300">
+			<div className="flex items-start justify-between gap-2 sm:gap-4">
+				<div className="flex flex-1 items-center gap-3">
+					<div className="rounded-sm border-2 border-black bg-[#FEF08A] p-2 text-black">
 						<Write size="sm" />
 					</div>
-					<div className="font-semibold text-gray-900 flex-1">
+					<div className="flex-1">
 						<TextareaAutosize
 							maxLength={50}
 							maxRows={1}
 							placeholder="Enter title"
-							className="leading-6 custom-scrollbar w-full resize-none rounded-lg border border-gray-200 p-2 text-sm outline-none focus:border-blue-500"
+							className="w-full resize-none rounded-sm border-2 border-black bg-[#FDFDFD] px-4 py-3 text-lg font-black text-black outline-none transition-all duration-200 placeholder:text-neutral-400 focus:-translate-y-0.5 focus:bg-white focus:shadow-[4px_4px_0px_#B8D8FF]"
 						/>
 					</div>
 				</div>
 
-				<div className="flex">
+				<div className="flex gap-2">
 					<button
 						onClick={() => {
 							console.log("clik");
 						}}
-						className="rounded-full p-2 text-gray-500 transition-all duration-200 hover:bg-blue-100 hover:text-blue-600"
+						className="rounded-sm border-2 border-transparent p-2 text-black transition-all duration-200 hover:-translate-y-0.5 hover:border-black hover:bg-[#86EFAC] hover:shadow-[4px_4px_0px_black] active:translate-y-0 active:shadow-none"
 					>
 						<Save size="sm" />
 					</button>
 					<button
 						onClick={onClose}
-						className="rounded-full p-2 text-gray-500 transition-all duration-200 hover:bg-red-100 hover:text-red-600"
+						className="rounded-sm border-2 border-transparent p-2 text-black transition-all duration-200 hover:-translate-y-0.5 hover:border-black hover:bg-[#FCA5A5] hover:shadow-[4px_4px_0px_black] active:translate-y-0 active:shadow-none"
 					>
 						<Close size="sm" />
 					</button>
 				</div>
 			</div>
-			<div className="overflow-hidden rounded-lg">
+
+			<div className="w-full">
 				<TextareaAutosize
-					minRows={3}
-					maxRows={10}
+					minRows={5}
+					maxRows={12}
 					maxLength={50000}
 					placeholder="Write something..."
-					className="leading-6 custom-scrollbar w-full resize-none rounded-lg border border-gray-200 p-3 text-sm outline-none focus:border-blue-500"
+					className="custom-scrollbar w-full resize-none rounded-sm border-2 border-black bg-[#FDFDFD] px-4 py-4 text-base font-medium leading-relaxed text-neutral-800 outline-none transition-all duration-200 placeholder:text-neutral-400 focus:-translate-y-0.5 focus:bg-white focus:shadow-[4px_4px_0px_#B8D8FF]"
 				/>
 			</div>
 		</div>

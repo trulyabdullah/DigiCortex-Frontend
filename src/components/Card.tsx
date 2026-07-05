@@ -10,16 +10,16 @@ interface CardProp {
 export function Card({ title, content }: CardProp) {
 	return (
 		// entire card content
-		<div className="w-full rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-2xl">
+		<div className="w-full rounded-md border-[3px] border-black bg-white p-5 shadow-[8px_8px_0px_#FDE047] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_#FDE047]">
 			{/* whole of topbar */}
 			<div className="flex items-center justify-between">
 				<div className="flex items-center gap-3">
 					{/* a simple document logo */}
-					<div className="rounded-lg bg-gray-100 p-2 text-gray-700">
+					<div className="rounded-sm border-2 border-black bg-[#C4B5FD] p-2 text-black">
 						<Document size="sm" />
 					</div>
 					{/* card title in topbar */}
-					<div className="font-semibold text-gray-900">{title}</div>
+					<div className="text-xl font-black text-black">{title}</div>
 				</div>
 
 				<div className="flex gap-2">
@@ -28,7 +28,7 @@ export function Card({ title, content }: CardProp) {
 						onClick={() => {
 							console.log("clik");
 						}}
-						className="rounded-full p-2 text-gray-500 transition-all duration-200 hover:bg-blue-100 hover:text-blue-600"
+						className="rounded-sm border-2 border-transparent p-2 text-black transition-all duration-200 hover:-translate-y-0.5 hover:border-black hover:bg-[#B8D8FF] hover:shadow-[4px_4px_0px_black] active:translate-y-0 active:shadow-none"
 					>
 						<Share size="sm" />
 					</button>
@@ -37,14 +37,14 @@ export function Card({ title, content }: CardProp) {
 						onClick={() => {
 							console.log("clik");
 						}}
-						className="rounded-full p-2 text-gray-500 transition-all duration-200 hover:bg-red-100 hover:text-red-600"
+						className="rounded-sm border-2 border-transparent p-2 text-black transition-all duration-200 hover:-translate-y-0.5 hover:border-black hover:bg-[#FCA5A5] hover:shadow-[4px_4px_0px_black] active:translate-y-0 active:shadow-none"
 					>
 						<Delete size="sm" />
 					</button>
 				</div>
 			</div>
 			{content && (
-				<div className="text-sm leading-6  text-gray-600">
+				<div className="mt-5 text-base font-medium leading-relaxed text-neutral-700">
 					<p className="line-clamp-8">{content}</p>
 				</div>
 			)}

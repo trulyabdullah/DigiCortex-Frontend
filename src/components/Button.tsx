@@ -10,16 +10,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClasses = {
-	primary:
-		"bg-blue-600 text-white hover:bg-blue-700 shadow-sm hover:shadow-lg",
-	secondary:
-		"bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400",
+	primary: "bg-[#5EEAD4] text-black",
+	secondary: "bg-white text-black hover:bg-[#B8D8FF]",
 };
 
 const sizeClasses = {
 	sm: "px-4 py-2 text-sm",
-	md: "px-5 py-2.5 text-base",
-	lg: "px-7 py-3 text-lg",
+	md: "px-5 py-3 text-base",
+	lg: "px-7 py-4 text-lg",
 };
 
 export const Button = ({
@@ -33,12 +31,13 @@ export const Button = ({
 }: ButtonProps) => {
 	return (
 		<button
-			className={`${variantClasses[variant]} ${sizeClasses[size]} rounded-md inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0`}
+			className={`${variantClasses[variant]} ${sizeClasses[size]} inline-flex items-center justify-center gap-2 rounded-md border-[3px] border-black font-bold transition-all duration-200 hover:-translate-y-1 hover:shadow-[5px_5px_0px_black] active:translate-y-0 active:shadow-none`}
 			onClick={onClick}
+			{...props}
 		>
-			{startIcon && <span className="shrink-0">{startIcon}</span>}{" "}
+			{startIcon && <span className="shrink-0">{startIcon}</span>}
 			<span>{children}</span>
-			{startIcon && <span className="shrink-0">{endIcon}</span>}{" "}
+			{endIcon && <span className="shrink-0">{endIcon}</span>}
 		</button>
 	);
 };
