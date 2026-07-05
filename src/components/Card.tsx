@@ -10,7 +10,7 @@ interface CardProp {
 export function Card({ title, content }: CardProp) {
 	return (
 		// entire card content
-		<div className="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-shadow duration-300 hover:shadow-2xl max-w-sm">
+		<div className="w-full rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-2xl">
 			{/* whole of topbar */}
 			<div className="flex items-center justify-between">
 				<div className="flex items-center gap-3">

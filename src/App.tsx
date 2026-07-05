@@ -8,14 +8,12 @@ import { Sidebar } from "./components/Sidebar";
 
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isContentScreen, setIsContentScreen] = useState(true);
-	const [isTagScreen, setIsTagScreen] = useState(true);
+	const [activeScreen, setActiveScreen] = useState<"content" | "tags">(
+		"content",
+	);
 	return (
 		<div className="flex">
-			<Sidebar
-				setIsContentScreen={setIsContentScreen}
-				setIsTagScreen={setIsTagScreen}
-			/>
+			<Sidebar setActiveScreen={setActiveScreen} />
 			<div className="flex-1 min-h-screen bg-[#331D2C] p-4 md:ml-72 overflow-x-hidden">
 				<CreateContentModal
 					open={isModalOpen}
@@ -42,7 +40,7 @@ function App() {
 						Share
 					</Button>
 				</div>
-				{isContentScreen && (
+				{activeScreen === "content" && (
 					<div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3">
 						<Card
 							title="test card"
@@ -83,7 +81,7 @@ function App() {
 						/>
 					</div>
 				)}
-				{isTagScreen && <div>tags</div>}
+				{activeScreen === "tags" && <div>tags</div>}
 			</div>
 		</div>
 	);
