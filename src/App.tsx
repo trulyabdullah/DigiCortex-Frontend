@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { SignUp } from "./components/Signup";
+import SignIn from "./components/Signin";
+import { Dashboard } from "./components/Dashboard";
 
 function App() {
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [activeScreen, setActiveScreen] = useState<"content" | "tags">(
-		"content",
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/signup" element={<SignUp />} />
+				<Route path="/signin" element={<SignIn />} />
+				<Route path="/dashboard" element={<Dashboard />} />
+			</Routes>
+		</BrowserRouter>
 	);
-	return <div></div>;
 }
 
 export default App;

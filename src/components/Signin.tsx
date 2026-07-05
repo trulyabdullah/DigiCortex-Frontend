@@ -22,9 +22,6 @@ export default function SignIn() {
 						<h1 className="mt-3 text-4xl font-black tracking-tight text-black">
 							Sign In
 						</h1>
-						<p className="mt-3 text-neutral-600 leading-relaxed">
-							Continue to your DigiCortex.
-						</p>
 					</div>
 
 					<form className="space-y-5" onSubmit={handleSubmit}>

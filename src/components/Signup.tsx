@@ -67,29 +67,6 @@ export function SignUp() {
 						<label
 							className={`group flex items-start gap-4 pt-2 pb-2 transition-opacity ${isLoading ? "cursor-not-allowed opacity-70" : "cursor-pointer"}`}
 						>
-							<div
-								className={`relative flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border-2 border-black bg-white transition-all duration-200 ${isLoading ? "" : "group-hover:-translate-y-0.5 group-hover:shadow-[3px_3px_0px_black] group-active:translate-y-0 group-active:shadow-none"}`}
-							>
-								<input
-									type="checkbox"
-									className="peer absolute h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
-									required
-									disabled={isLoading}
-								/>
-								<svg
-									className="hidden h-4 w-4 text-black peer-checked:block"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									strokeWidth="4"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										d="M5 13l4 4L19 7"
-									/>
-								</svg>
-							</div>
 							<span className="text-sm font-medium text-neutral-600 leading-tight pt-1">
 								Just have{" "}
 								<span
