@@ -4,23 +4,28 @@ import { Write } from "../icons/Write";
 import TextareaAutosize from "react-textarea-autosize";
 
 interface CreateCardProp {
-	title: string;
-	content?: string;
 	onClose: () => void;
 }
 
-export function CreateCard({ title, onClose }: CreateCardProp) {
+export function CreateCard({ onClose }: CreateCardProp) {
 	return (
-		<div className="w-10/12 max-w-lg flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-shadow duration-300 hover:shadow-2xl">
-			<div className="flex items-center justify-between gap-4">
-				<div className="flex items-center gap-3">
-					<div className="rounded-lg bg-gray-100 p-2 text-gray-700">
+		<div className="w-10/12 max-w-lg flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-2xl">
+			<div className="flex items-center gap-1 sm:gap-2">
+				<div className="flex items-center flex-1 gap-1">
+					<div className="rounded-full p-2 text-gray-500">
 						<Write size="sm" />
 					</div>
-					<div className="font-semibold text-gray-900">{title}</div>
+					<div className="font-semibold text-gray-900 flex-1">
+						<TextareaAutosize
+							maxLength={50}
+							maxRows={1}
+							placeholder="Enter title"
+							className="leading-6 custom-scrollbar w-full resize-none rounded-lg border border-gray-200 p-2 text-sm outline-none focus:border-blue-500"
+						/>
+					</div>
 				</div>
 
-				<div className="flex gap-2">
+				<div className="flex">
 					<button
 						onClick={() => {
 							console.log("clik");
@@ -41,6 +46,7 @@ export function CreateCard({ title, onClose }: CreateCardProp) {
 				<TextareaAutosize
 					minRows={3}
 					maxRows={10}
+					maxLength={50000}
 					placeholder="Write something..."
 					className="leading-6 custom-scrollbar w-full resize-none rounded-lg border border-gray-200 p-3 text-sm outline-none focus:border-blue-500"
 				/>

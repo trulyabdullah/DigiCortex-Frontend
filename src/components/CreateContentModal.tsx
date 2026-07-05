@@ -12,7 +12,6 @@ export function CreateContentModal({ open, setOpen }: ContentModalProps) {
 			{open && (
 				<div className="min-h-lvh min-w-lvw backdrop-blur-sm fixed top-0 left-0 flex justify-center items-center">
 					<CreateCard
-						title="test card"
 						onClose={() => {
 							setOpen(false);
 						}}
