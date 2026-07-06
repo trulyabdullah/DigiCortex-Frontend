@@ -14,6 +14,7 @@ export function Sidebar({ setActiveScreen }: SidebarProp) {
 	const navigate = useNavigate();
 	const handleSignOutConfirm = () => {
 		localStorage.removeItem("token");
+		localStorage.removeItem("brain_share_hash");
 		navigate("/signin");
 	};
 
