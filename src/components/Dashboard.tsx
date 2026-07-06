@@ -48,7 +48,7 @@ export function Dashboard() {
 									setIsModalOpen={setIsModalOpen}
 									onRefresh={() => {
 										localStorage.removeItem("token");
-										window.location.href = "/signup";
+										window.location.href = "/";
 									}}
 									onError={(msg) => setErrorMessage(msg)}
 								/>

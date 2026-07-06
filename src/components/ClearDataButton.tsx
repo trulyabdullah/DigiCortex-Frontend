@@ -38,34 +38,34 @@ export function ClearDataButton({ onSuccess, onError }: WipeDataProps) {
 		<>
 			<button
 				onClick={() => setIsOpen(true)}
-				className="border-2 border-black bg-white px-5 py-2.5 text-xs font-black tracking-wider text-black shadow-[4px_4px_0px_black] hover:bg-rose-50 hover:shadow-[6px_6px_0px_black] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all rounded-sm"
+				className="rounded-sm border-[3px] border-black bg-white px-5 py-2 text-sm font-bold text-black shadow-[4px_4px_0px_black] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#FCA5A5] hover:shadow-[6px_6px_0px_black] active:translate-y-0 active:shadow-none"
 			>
 				Delete Account
 			</button>
 
 			{isOpen && (
-				<div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-xs">
 					<div
 						className="absolute inset-0"
 						onClick={() => !isWiping && setIsOpen(false)}
 					/>
 
-					<div className="relative w-full max-w-md border-[3px] border-black bg-white p-6 shadow-[8px_8px_0px_black] rounded-md z-10">
-						<h3 className="text-xl font-black text-black uppercase tracking-tight mb-2">
+					<div className="relative z-10 w-full max-w-sm rounded-md border-[3px] border-black bg-white p-6 shadow-[8px_8px_0px_#FCA5A5]">
+						<h3 className="text-xl font-black text-black">
 							Are you absolutely sure?
 						</h3>
 
-						<p className="text-neutral-600 font-medium text-sm leading-relaxed mb-6">
+						<p className="mt-2 text-base font-medium leading-relaxed text-neutral-700">
 							This will permanently delete all your cards, saved
 							tags and account data from our database. This action
 							is irreversible.
 						</p>
 
-						<div className="flex items-center justify-end gap-3">
+						<div className="mt-6 flex justify-end gap-3">
 							<button
 								disabled={isWiping}
 								onClick={() => setIsOpen(false)}
-								className="border-2 border-transparent px-4 py-2 font-bold text-neutral-500 hover:text-black tracking-wider transition-colors disabled:opacity-50"
+								className="rounded-sm border-2 border-black bg-white px-4 py-2 text-sm font-bold text-black shadow-[3px_3px_0px_black] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_black] active:translate-y-0 active:shadow-none disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0px_black]"
 							>
 								Cancel
 							</button>
@@ -73,11 +73,9 @@ export function ClearDataButton({ onSuccess, onError }: WipeDataProps) {
 							<button
 								disabled={isWiping}
 								onClick={handleWipeData}
-								className="border-2 border-black bg-rose-500 px-5 py-2 font-black tracking-wider text-white shadow-[3px_3px_0px_black] hover:bg-rose-600 hover:shadow-[4px_4px_0px_black] active:translate-x-px active:translate-y-px active:shadow-none transition-all rounded-sm disabled:opacity-50"
+								className="rounded-sm border-2 border-black bg-[#FCA5A5] px-4 py-2 text-sm font-bold text-black shadow-[3px_3px_0px_black] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_black] active:translate-y-0 active:shadow-none disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0px_black]"
 							>
-								{isWiping
-									? "Wiping..."
-									: "Yes, Delete Everything"}
+								{isWiping ? "Wiping..." : "Delete Everything"}
 							</button>
 						</div>
 					</div>
