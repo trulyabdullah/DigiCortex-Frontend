@@ -1,6 +1,5 @@
 import { Delete } from "../icons/Delete";
 import { Document } from "../icons/Document";
-import { Share } from "../icons/Share";
 
 interface TagObject {
 	_id?: string;
@@ -8,9 +7,11 @@ interface TagObject {
 }
 
 interface CardProp {
+	id: string;
 	title: string;
 	content?: string;
 	tags?: Array<TagObject | string>;
+	onDelete: (id: string) => void;
 }
 
 const colors = ["purple", "pink", "teal", "yellow"] as const;
@@ -30,7 +31,7 @@ const getStableColorClass = (tagName: string) => {
 	return variantClasses[colors[index]];
 };
 
-export function Card({ title, content, tags = [] }: CardProp) {
+export function Card({ id, title, content, tags = [], onDelete }: CardProp) {
 	return (
 		<div className="flex h-full w-full flex-col justify-between rounded-md border-[3px] border-black bg-white p-5 shadow-[8px_8px_0px_#FDE047] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_#FDE047]">
 			<div>
@@ -50,13 +51,7 @@ export function Card({ title, content, tags = [] }: CardProp) {
 
 					<div className="flex shrink-0 gap-2">
 						<button
-							onClick={() => console.log("Share clicked")}
-							className="flex shrink-0 items-center justify-center rounded-sm border-2 border-transparent p-2 text-black transition-all duration-200 hover:-translate-y-0.5 hover:border-black hover:bg-[#B8D8FF] hover:shadow-[4px_4px_0px_black] active:translate-y-0 active:shadow-none"
-						>
-							<Share size="sm" />
-						</button>
-						<button
-							onClick={() => console.log("Delete clicked")}
+							onClick={() => onDelete(id)}
 							className="flex shrink-0 items-center justify-center rounded-sm border-2 border-transparent p-2 text-black transition-all duration-200 hover:-translate-y-0.5 hover:border-black hover:bg-[#FCA5A5] hover:shadow-[4px_4px_0px_black] active:translate-y-0 active:shadow-none"
 						>
 							<Delete size="sm" />

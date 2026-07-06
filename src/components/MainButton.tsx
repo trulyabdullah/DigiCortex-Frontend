@@ -35,7 +35,7 @@ export function MainButton({ setIsModalOpen }: MainButtonProp) {
 				startIcon={<Delete size="sm" />}
 				onClick={() => {}}
 			>
-				Delete
+				Delete Account
 			</Button>
 		</div>
 	);
