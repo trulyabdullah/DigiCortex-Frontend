@@ -15,12 +15,42 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
 	const [errorMessage, setErrorMessage] = useState("");
 
 	useEffect(() => {
-		const savedHash = localStorage.getItem("brain_share_hash");
-		if (savedHash) {
-			setIsShared(true);
-			setShareUrl(`${window.location.origin}/share/${savedHash}`);
-		}
-	}, []);
+		if (!isOpen) return;
+
+		let isMounted = true;
+		const token = localStorage.getItem("token");
+		const fetchShareStatus = async () => {
+			try {
+				const response = await fetch(
+					`${BACKEND_URL}/api/v1/brain/share`,
+					{
+						headers: {
+							Authorization: token ? `Bearer ${token}` : "",
+						},
+					},
+				);
+
+				if (!isMounted) return;
+				const result = await response.json();
+				if (response.ok) {
+					setIsShared(result.isShared);
+					setShareUrl(
+						result.isShared && result.link
+							? `${window.location.origin}/share/${result.link}`
+							: "",
+					);
+				}
+			} catch (error) {
+				if (isMounted)
+					console.error("Failed to sync share status:", error);
+			}
+		};
+
+		fetchShareStatus();
+		return () => {
+			isMounted = false;
+		};
+	}, [isOpen]);
 
 	if (!isOpen) return null;
 
@@ -42,32 +72,19 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
 
 			const result = await response.json();
 
-			if (!response.ok) {
-				if (response.status === 409) {
-					setErrorMessage(
-						"A public link already exists for this account. Please reset or try again.",
-					);
-				} else {
-					throw new Error(result.message || "Action failed");
-				}
-				return;
-			}
+			if (!response.ok)
+				throw new Error(result.message || "Action failed");
 
 			if (nextShareState) {
-				const generatedUrl = `${window.location.origin}/share/${result.link}`;
-				setShareUrl(generatedUrl);
-				localStorage.setItem("brain_share_hash", result.link);
+				setShareUrl(`${window.location.origin}/share/${result.link}`);
 				setIsShared(true);
 			} else {
 				setShareUrl("");
-				localStorage.removeItem("brain_share_hash");
 				setIsShared(false);
 			}
 		} catch (error) {
 			console.error("Share configuration error:", error);
-			setErrorMessage(
-				"Server communication failed. Please try again later.",
-			);
+			setErrorMessage("Server communication failed.");
 		} finally {
 			setIsLoading(false);
 		}
@@ -119,12 +136,12 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
 							disabled={isLoading}
 							className={`relative h-7 w-14 border-2 border-black transition-colors duration-150 disabled:opacity-50 shadow-[2px_2px_0px_black] active:translate-x-px active:translate-y-px active:shadow-none ${
 								isShared ? "bg-[#5EEAD4]" : "bg-zinc-200"
-							}`}
+							} ${isLoading ? "cursor-wait opacity-70" : "cursor-pointer"}`}
 						>
 							<span
 								className={`absolute top-0.5 bottom-0.5 w-5 border-2 border-black bg-white transition-all duration-150 ${
 									isShared ? "left-7" : "left-0.5"
-								}`}
+								}${isLoading ? "animate-pulse" : ""}`}
 							/>
 						</button>
 					</div>
