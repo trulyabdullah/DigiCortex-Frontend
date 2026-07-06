@@ -1,9 +1,18 @@
 @import "tailwindcss";
 
-@theme {
-    --color-inkblack: #0d1821;
-    --color-yaleblue: #344966;
-    --color-powderblue: #b4cded;
-    --color-porcelain: #f0f4ef;
-    --color-drysage: #bfcc94;
+.custom-scrollbar::-webkit-scrollbar {
+	width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background: #d1d5db; /* gray-300 */
+	border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: #9ca3af; /* gray-400 */
 }

@@ -1,9 +1,9 @@
 export interface IconProp {
-    size: "sm" | "md" | "lg";
+	size: "sm" | "md" | "lg";
 }
 
 export const IconClasses = {
-    sm: "size-6",
-    md: "size-8",
-    lg: "size-10",
+	sm: "size-6",
+	md: "size-8",
+	lg: "size-10",
 };
