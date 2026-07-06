@@ -23,6 +23,12 @@ export function SignUp() {
 		const password = passwordRef.current?.value;
 		const name = nameRef.current?.value;
 		if (!email || !password || !name) {
+			setErrorMsg("A required field cannot be empty");
+			setIsLoading(false);
+			return;
+		}
+		if (!password || password.length < 8) {
+			setErrorMsg("Password must be at least 8 characters long.");
 			setIsLoading(false);
 			return;
 		}
@@ -95,6 +101,9 @@ export function SignUp() {
 								placeholder="Enter your name"
 								className="w-full rounded-sm border-2 border-black bg-[#FDFDFD] px-5 py-4 outline-none transition-all duration-200 placeholder:text-neutral-400 focus:-translate-y-0.5 focus:bg-[#F3FAFF] focus:shadow-[4px_4px_0px_#7DD3FC] disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:opacity-70"
 							/>
+							<p className="mt-1 text-xs text-neutral-500 font-medium">
+								* Must be at least 3 characters long.
+							</p>
 						</div>
 						<div>
 							<label
@@ -132,6 +141,9 @@ export function SignUp() {
 								placeholder="Create a strong password"
 								className="w-full rounded-sm border-2 border-black bg-[#FDFDFD] px-5 py-4 outline-none transition-all duration-200 placeholder:text-neutral-400 focus:-translate-y-0.5 focus:bg-[#F8FFF5] focus:shadow-[4px_4px_0px_#86EFAC] disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:opacity-70"
 							/>
+							<p className="mt-1 text-xs text-neutral-500 font-medium">
+								* Must be at least 8 characters long.
+							</p>
 						</div>
 						<label
 							className={`group flex items-start gap-4 pt-2 pb-2 transition-opacity ${isLoading ? "cursor-not-allowed opacity-70" : "cursor-pointer"}`}
