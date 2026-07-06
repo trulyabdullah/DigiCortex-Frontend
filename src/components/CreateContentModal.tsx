@@ -4,9 +4,14 @@ import { CreateCard } from "./CreateCard";
 interface ContentModalProps {
 	open: boolean;
 	setOpen: Dispatch<SetStateAction<boolean>>;
+	refresh: () => void;
 }
 
-export function CreateContentModal({ open, setOpen }: ContentModalProps) {
+export function CreateContentModal({
+	open,
+	setOpen,
+	refresh,
+}: ContentModalProps) {
 	const titleRef = useRef<HTMLTextAreaElement>(null);
 	const contentRef = useRef<HTMLTextAreaElement>(null);
 	const tagRef = useRef<HTMLInputElement>(null);
@@ -26,6 +31,7 @@ export function CreateContentModal({ open, setOpen }: ContentModalProps) {
 						onClose={() => {
 							setOpen(false);
 						}}
+						refresh={refresh}
 						titleRef={titleRef}
 						contentRef={contentRef}
 						tagRef={tagRef}

@@ -12,6 +12,7 @@ interface CreateCardProp {
 	titleRef: React.RefObject<HTMLTextAreaElement | null>;
 	contentRef: React.RefObject<HTMLTextAreaElement | null>;
 	tagRef: React.RefObject<HTMLInputElement | null>;
+	refresh: () => void;
 }
 
 interface TagItem {
@@ -31,6 +32,7 @@ export function CreateCard({
 	titleRef,
 	contentRef,
 	tagRef,
+	refresh,
 }: CreateCardProp) {
 	const [tagsList, setTagsList] = useState<TagItem[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -98,7 +100,7 @@ export function CreateCard({
 					},
 				},
 			);
-
+			refresh();
 			onClose();
 		} catch (error: any) {
 			console.error("Failed to save content:", error);

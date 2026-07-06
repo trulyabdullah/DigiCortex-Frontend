@@ -11,6 +11,12 @@ export function Dashboard() {
 		"content",
 	);
 
+	const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+	const triggerRefresh = () => {
+		setRefreshTrigger((prev) => prev + 1);
+	};
+
 	return (
 		<div className="flex min-h-screen bg-[#F4F4F5]">
 			<Sidebar setActiveScreen={setActiveScreen} />
@@ -18,9 +24,8 @@ export function Dashboard() {
 			<div className="flex-1 overflow-x-hidden p-6 md:ml-72 md:p-10 lg:p-12">
 				<CreateContentModal
 					open={isModalOpen}
-					setOpen={() => {
-						setIsModalOpen(false);
-					}}
+					setOpen={setIsModalOpen}
+					refresh={triggerRefresh}
 				/>
 
 				<main className="mx-auto max-w-7xl">
@@ -33,7 +38,7 @@ export function Dashboard() {
 								<MainButton setIsModalOpen={setIsModalOpen} />
 							</div>
 
-							<Content />
+							<Content refreshTrigger={refreshTrigger} />
 						</div>
 					)}
 

@@ -10,7 +10,7 @@ interface MainButtonProp {
 
 export function MainButton({ setIsModalOpen }: MainButtonProp) {
 	return (
-		<div className="mb-4 flex justify-end gap-2">
+		<div className="mb-4 flex justify-end gap-2 flex-col sm:flex-row">
 			<Button
 				variant="primary"
 				size="sm"
