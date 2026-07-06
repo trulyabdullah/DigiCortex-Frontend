@@ -4,14 +4,15 @@ import { Content } from "./Content";
 import { MainButton } from "./MainButton";
 import { CreateContentModal } from "./CreateContentModal";
 import { Tags } from "./Tags";
+import { ErrorToast } from "./ErrorToast";
 
 export function Dashboard() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [activeScreen, setActiveScreen] = useState<"content" | "tags">(
 		"content",
 	);
-
 	const [refreshTrigger, setRefreshTrigger] = useState(0);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 	const triggerRefresh = () => {
 		setRefreshTrigger((prev) => prev + 1);
@@ -22,6 +23,13 @@ export function Dashboard() {
 			<Sidebar setActiveScreen={setActiveScreen} />
 
 			<div className="flex-1 overflow-x-hidden p-6 md:ml-72 md:p-10 lg:p-12">
+				{errorMessage && (
+					<ErrorToast
+						message={errorMessage}
+						onClose={() => setErrorMessage(null)}
+					/>
+				)}
+
 				<CreateContentModal
 					open={isModalOpen}
 					setOpen={setIsModalOpen}
@@ -35,7 +43,15 @@ export function Dashboard() {
 								<h1 className="tracking-wide text-3xl font-black text-black">
 									WORKSPACE
 								</h1>
-								<MainButton setIsModalOpen={setIsModalOpen} />
+
+								<MainButton
+									setIsModalOpen={setIsModalOpen}
+									onRefresh={() => {
+										localStorage.removeItem("token");
+										window.location.href = "/signup";
+									}}
+									onError={(msg) => setErrorMessage(msg)}
+								/>
 							</div>
 
 							<Content refreshTrigger={refreshTrigger} />

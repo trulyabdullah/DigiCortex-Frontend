@@ -2,13 +2,20 @@ import { useState, type Dispatch, type SetStateAction } from "react";
 import { Plus } from "../icons/Plus";
 import { Share } from "../icons/Share";
 import { Button } from "./Button";
-import { Delete } from "../icons/Delete";
 import { ShareModal } from "./ShareModal";
+import { ClearDataButton } from "./ClearDataButton";
+
 interface MainButtonProp {
 	setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+	onRefresh: () => void;
+	onError: (message: string) => void;
 }
 
-export function MainButton({ setIsModalOpen }: MainButtonProp) {
+export function MainButton({
+	setIsModalOpen,
+	onRefresh,
+	onError,
+}: MainButtonProp) {
 	const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
 	return (
@@ -31,14 +38,14 @@ export function MainButton({ setIsModalOpen }: MainButtonProp) {
 				Share Brain
 			</Button>
 
-			<Button
-				variant="tertiary"
-				size="sm"
-				startIcon={<Delete size="sm" />}
-				onClick={() => {}}
-			>
-				Delete Account
-			</Button>
+			<ClearDataButton
+				onSuccess={() => {
+					onRefresh();
+				}}
+				onError={(msg) => {
+					onError(msg);
+				}}
+			/>
 
 			<ShareModal
 				isOpen={isShareModalOpen}
