@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: React.ReactNode;
-	variant: "primary" | "secondary";
+	variant: "primary" | "secondary" | "tertiary";
 	size: "sm" | "md" | "lg";
 	startIcon?: React.ReactNode;
 	endIcon?: React.ReactNode;
@@ -12,6 +12,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const variantClasses = {
 	primary: "bg-[#5EEAD4] text-black",
 	secondary: "bg-white text-black hover:bg-[#B8D8FF]",
+	tertiary: "bg-white text-black hover:bg-red-500 hover:text-white",
 };
 
 const sizeClasses = {

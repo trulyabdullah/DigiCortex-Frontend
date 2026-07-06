@@ -1,21 +1,58 @@
-import { useState } from "react";
+import axios from "axios";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config";
+import { ErrorToast } from "./ErrorToast";
+import { SuccessOverlay } from "./SuccessOverlay";
 
 export default function SignIn() {
 	const [isLoading, setIsLoading] = useState(false);
+	const [showSuccess, setShowSuccess] = useState(false);
+	const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const emailRef = useRef<HTMLInputElement>(null);
+	const passwordRef = useRef<HTMLInputElement>(null);
+
+	const navigate = useNavigate();
+
+	const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setIsLoading(true);
-
-		// Simulate API call
-		setTimeout(() => {
+		setErrorMsg(null);
+		const email = emailRef.current?.value;
+		const password = passwordRef.current?.value;
+		if (!email || !password) {
 			setIsLoading(false);
-			// Handle success logic here
-		}, 2500);
+			return;
+		}
+		setIsLoading(true);
+		try {
+			const response = await axios.post(`${BACKEND_URL}/api/v1/signin`, {
+				email: email,
+				password: password,
+			});
+			const token = response.data.token;
+			localStorage.setItem("token", token);
+			setShowSuccess(true);
+			setTimeout(() => {
+				navigate("/dashboard");
+				console.log("Routing to /dashboard");
+			}, 1000);
+		} catch (err) {
+			setErrorMsg("Invalid credentials");
+			setIsLoading(false);
+		}
+		setIsLoading(false);
 	};
 
 	return (
 		<main className="min-h-screen bg-[#F7F8FC] flex items-center justify-center p-6">
+			{errorMsg && (
+				<ErrorToast
+					message={errorMsg}
+					onClose={() => setErrorMsg(null)}
+				/>
+			)}
+			{showSuccess && <SuccessOverlay />}
 			<div className="w-full max-w-md">
 				<div className="rounded-md border-[3px] border-black bg-white shadow-[10px_10px_0px_#B8D8FF] p-10 transition-all duration-200 hover:-translate-y-1 hover:shadow-[14px_14px_0px_#B8D8FF]">
 					<div className="mb-10">
@@ -33,6 +70,7 @@ export default function SignIn() {
 								Email
 							</label>
 							<input
+								ref={emailRef}
 								id="email"
 								type="email"
 								name="email"
@@ -50,6 +88,7 @@ export default function SignIn() {
 								Password
 							</label>
 							<input
+								ref={passwordRef}
 								id="password"
 								type="password"
 								name="password"
@@ -61,9 +100,9 @@ export default function SignIn() {
 						</div>
 						<button
 							type="submit"
-							disabled={isLoading}
+							disabled={isLoading || showSuccess}
 							className={`mt-4 w-full rounded-sm border-2 border-black py-4 text-base font-bold text-black transition-all duration-200 flex items-center justify-center gap-3 ${
-								isLoading
+								isLoading || showSuccess
 									? "bg-neutral-300 cursor-not-allowed translate-y-0 shadow-none"
 									: "bg-[#5EEAD4] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_black] active:translate-y-0 active:shadow-none"
 							}`}

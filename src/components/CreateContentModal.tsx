@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import { useRef, type Dispatch, type SetStateAction } from "react";
 import { CreateCard } from "./CreateCard";
 
 interface ContentModalProps {
@@ -7,6 +7,10 @@ interface ContentModalProps {
 }
 
 export function CreateContentModal({ open, setOpen }: ContentModalProps) {
+	const titleRef = useRef<HTMLTextAreaElement>(null);
+	const contentRef = useRef<HTMLTextAreaElement>(null);
+	const tagRef = useRef<HTMLInputElement>(null);
+
 	return (
 		<>
 			{open && (
@@ -22,6 +26,9 @@ export function CreateContentModal({ open, setOpen }: ContentModalProps) {
 						onClose={() => {
 							setOpen(false);
 						}}
+						titleRef={titleRef}
+						contentRef={contentRef}
+						tagRef={tagRef}
 					/>
 				</div>
 			)}

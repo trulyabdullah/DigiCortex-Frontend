@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { BACKEND_URL } from "../config";
 import { ErrorToast } from "./ErrorToast";
 import { SuccessOverlay } from "./SuccessOverlay";
+import { useNavigate } from "react-router-dom";
 
 export function SignUp() {
 	const [isLoading, setIsLoading] = useState(false);
@@ -11,26 +12,32 @@ export function SignUp() {
 
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
+	const nameRef = useRef<HTMLInputElement>(null);
+
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setErrorMsg(null);
 		const email = emailRef.current?.value;
 		const password = passwordRef.current?.value;
-		if (!email || !password) {
+		const name = nameRef.current?.value;
+		if (!email || !password || !name) {
 			setIsLoading(false);
 			return;
 		}
 		setIsLoading(true);
 		try {
 			await axios.post(`${BACKEND_URL}/api/v1/signup`, {
+				name: name,
 				email: email,
 				password: password,
 			});
 			setShowSuccess(true);
 			setTimeout(() => {
+				navigate("/signin");
 				console.log("Routing to /signin");
-			}, 2000);
+			}, 1000);
 		} catch (err) {
 			setErrorMsg("Connection failed or user exists.");
 			setIsLoading(false);
@@ -60,6 +67,24 @@ export function SignUp() {
 					</div>
 
 					<form className="space-y-5" onSubmit={handleSubmit}>
+						<div>
+							<label
+								htmlFor="name"
+								className={`mb-2 block text-sm font-semibold text-black transition-opacity ${isLoading ? "opacity-50" : ""}`}
+							>
+								Name
+							</label>
+							<input
+								ref={nameRef}
+								id="name"
+								type="text"
+								name="name"
+								required
+								disabled={isLoading}
+								placeholder="Enter your name"
+								className="w-full rounded-sm border-2 border-black bg-[#FDFDFD] px-5 py-4 outline-none transition-all duration-200 placeholder:text-neutral-400 focus:-translate-y-0.5 focus:bg-[#F3FAFF] focus:shadow-[4px_4px_0px_#7DD3FC] disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:opacity-70"
+							/>
+						</div>
 						<div>
 							<label
 								htmlFor="email"

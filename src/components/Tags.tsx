@@ -14,12 +14,7 @@ export function Tags() {
 					<h2 className="text-xl font-black text-black mb-4 pb-2 border-b-2 border-black">
 						Active Tags
 					</h2>
-					<div className="flex flex-wrap gap-3">
-						<Tag text="react" variant="purple" />
-						<Tag text="tailwind" variant="pink" />
-						<Tag text="webdev" variant="teal" />
-						<Tag text="frontend" variant="purple" />
-					</div>
+					<div className="flex flex-wrap gap-3"></div>
 				</div>
 			</div>
 		</div>

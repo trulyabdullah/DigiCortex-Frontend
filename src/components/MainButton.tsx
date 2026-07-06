@@ -2,6 +2,7 @@ import type { Dispatch, SetStateAction } from "react";
 import { Plus } from "../icons/Plus";
 import { Share } from "../icons/Share";
 import { Button } from "./Button";
+import { Delete } from "../icons/Delete";
 
 interface MainButtonProp {
 	setIsModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -26,6 +27,15 @@ export function MainButton({ setIsModalOpen }: MainButtonProp) {
 				onClick={() => {}}
 			>
 				Share
+			</Button>
+
+			<Button
+				variant="tertiary"
+				size="sm"
+				startIcon={<Delete size="sm" />}
+				onClick={() => {}}
+			>
+				Delete
 			</Button>
 		</div>
 	);
