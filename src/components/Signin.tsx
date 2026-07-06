@@ -15,6 +15,17 @@ export default function SignIn() {
 
 	const navigate = useNavigate();
 
+	const handleSignUp = async () => {
+		try {
+			navigate("/");
+			console.log("Routing to /signup");
+		} catch (err) {
+			setErrorMsg("Connection failed or user exists.");
+			setIsLoading(false);
+		}
+		setIsLoading(false);
+	};
+
 	const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setErrorMsg(null);
@@ -119,6 +130,28 @@ export default function SignIn() {
 							)}
 						</button>
 					</form>
+					<button
+						onClick={handleSignUp}
+						type="submit"
+						disabled={isLoading || showSuccess}
+						className={`mt-4 w-full rounded-sm border-2 border-black py-4 text-base font-bold text-black transition-all duration-200 flex items-center justify-center gap-3
+								${
+									isLoading || showSuccess
+										? "bg-neutral-300 cursor-not-allowed translate-y-0 shadow-none"
+										: "bg-[#F472B6] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_black] active:translate-y-0 active:shadow-none"
+								}`}
+					>
+						{isLoading ? (
+							<>
+								<span className="h-4 w-4 border-2 border-black bg-[#FDE047] animate-spin"></span>
+								<span className="animate-pulse tracking-wide">
+									JUST A SEC...
+								</span>
+							</>
+						) : (
+							"Sign Up"
+						)}
+					</button>
 				</div>
 			</div>
 		</main>
