@@ -11,7 +11,7 @@ interface CardProp {
 	title: string;
 	content?: string;
 	tags?: Array<TagObject | string>;
-	onDelete: (id: string) => void;
+	onDelete?: (id: string) => void;
 }
 
 const colors = ["purple", "pink", "teal", "yellow"] as const;
@@ -49,14 +49,16 @@ export function Card({ id, title, content, tags = [], onDelete }: CardProp) {
 						</div>
 					</div>
 
-					<div className="flex shrink-0 gap-2">
-						<button
-							onClick={() => onDelete(id)}
-							className="flex shrink-0 items-center justify-center rounded-sm border-2 border-transparent p-2 text-black transition-all duration-200 hover:-translate-y-0.5 hover:border-black hover:bg-[#FCA5A5] hover:shadow-[4px_4px_0px_black] active:translate-y-0 active:shadow-none"
-						>
-							<Delete size="sm" />
-						</button>
-					</div>
+					{onDelete && (
+						<div className="flex shrink-0 gap-2">
+							<button
+								onClick={() => onDelete(id)}
+								className="flex shrink-0 items-center justify-center rounded-sm border-2 border-transparent p-2 text-black transition-all duration-200 hover:-translate-y-0.5 hover:border-black hover:bg-[#FCA5A5] hover:shadow-[4px_4px_0px_black] active:translate-y-0 active:shadow-none"
+							>
+								<Delete size="sm" />
+							</button>
+						</div>
+					)}
 				</div>
 
 				{content && (

@@ -32,7 +32,7 @@ export const Button = ({
 }: ButtonProps) => {
 	return (
 		<button
-			className={`${variantClasses[variant]} ${sizeClasses[size]} inline-flex items-center justify-center gap-2 rounded-md border-[3px] border-black font-bold transition-all duration-200 hover:-translate-y-1 hover:shadow-[5px_5px_0px_black] active:translate-y-0 active:shadow-none`}
+			className={`${variantClasses[variant]} ${sizeClasses[size]} inline-flex items-center justify-center gap-2 rounded-md border-[3px] border-black font-bold transition-all duration-200 hover:-translate-y-1 hover:shadow-[5px_5px_0px_black] active:translate-y-0 active:shadow-none disabled:opacity-60 disabled:pointer-events-none`}
 			onClick={onClick}
 			{...props}
 		>

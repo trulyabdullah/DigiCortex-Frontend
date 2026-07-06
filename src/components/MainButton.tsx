@@ -1,14 +1,16 @@
-import type { Dispatch, SetStateAction } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import { Plus } from "../icons/Plus";
 import { Share } from "../icons/Share";
 import { Button } from "./Button";
 import { Delete } from "../icons/Delete";
-
+import { ShareModal } from "./ShareModal";
 interface MainButtonProp {
 	setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export function MainButton({ setIsModalOpen }: MainButtonProp) {
+	const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
 	return (
 		<div className="mb-4 flex justify-end gap-2 flex-col sm:flex-row">
 			<Button
@@ -24,9 +26,9 @@ export function MainButton({ setIsModalOpen }: MainButtonProp) {
 				variant="secondary"
 				size="sm"
 				startIcon={<Share size="sm" />}
-				onClick={() => {}}
+				onClick={() => setIsShareModalOpen(true)}
 			>
-				Share
+				Share Brain
 			</Button>
 
 			<Button
@@ -37,6 +39,11 @@ export function MainButton({ setIsModalOpen }: MainButtonProp) {
 			>
 				Delete Account
 			</Button>
+
+			<ShareModal
+				isOpen={isShareModalOpen}
+				onClose={() => setIsShareModalOpen(false)}
+			/>
 		</div>
 	);
 }
