@@ -34,6 +34,7 @@ export function Sidebar({ setActiveScreen }: SidebarProp) {
 
 			<button
 				onClick={() => {
+					localStorage.removeItem("token");
 					navigate("/signin");
 				}}
 				className="flex w-full items-center gap-3 rounded-md border-[3px] border-black bg-white p-4 text-lg font-bold text-black transition-all duration-200 hover:-translate-y-1 hover:bg-[#F9A8D4] hover:shadow-[6px_6px_0px_black] active:translate-y-0 active:shadow-none"
