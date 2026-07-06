@@ -45,6 +45,17 @@ export function SignUp() {
 		setIsLoading(false);
 	};
 
+	const handleSignin = async () => {
+		try {
+			navigate("/signin");
+			console.log("Routing to /signin");
+		} catch (err) {
+			setErrorMsg("Connection failed or user exists.");
+			setIsLoading(false);
+		}
+		setIsLoading(false);
+	};
+
 	return (
 		<main className="min-h-screen bg-[#F7F8FC] flex items-center justify-center p-6">
 			{errorMsg && (
@@ -156,6 +167,28 @@ export function SignUp() {
 							)}
 						</button>
 					</form>
+					<button
+						onClick={handleSignin}
+						type="submit"
+						disabled={isLoading || showSuccess}
+						className={`mt-4 w-full rounded-sm border-2 border-black py-4 text-base font-bold text-black transition-all duration-200 flex items-center justify-center gap-3
+								${
+									isLoading || showSuccess
+										? "bg-neutral-300 cursor-not-allowed translate-y-0 shadow-none"
+										: "bg-[#F472B6] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_black] active:translate-y-0 active:shadow-none"
+								}`}
+					>
+						{isLoading ? (
+							<>
+								<span className="h-4 w-4 border-2 border-black bg-[#FDE047] animate-spin"></span>
+								<span className="animate-pulse tracking-wide">
+									JUST A SEC...
+								</span>
+							</>
+						) : (
+							"Sign in"
+						)}
+					</button>
 				</div>
 			</div>
 		</main>
