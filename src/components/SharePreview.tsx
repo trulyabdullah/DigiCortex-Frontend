@@ -19,6 +19,8 @@ export function SharePreview() {
 	const [username, setUsername] = useState<string>("GUEST");
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [activeModalCard, setActiveModalCard] =
+		useState<SharedContentItem | null>(null);
 
 	useEffect(() => {
 		async function fetchSharedBrain() {
@@ -92,13 +94,18 @@ export function SharePreview() {
 						{contentList.map((item) => {
 							const cardId = item.id || item._id || "";
 							return (
-								<Card
+								<div
 									key={cardId}
-									id={cardId}
-									title={item.title}
-									content={item.content}
-									tags={item.tags}
-								/>
+									onClick={() => setActiveModalCard(item)}
+									className="cursor-pointer"
+								>
+									<Card
+										id={cardId}
+										title={item.title}
+										content={item.content}
+										tags={item.tags}
+									/>
+								</div>
 							);
 						})}
 					</div>
@@ -111,6 +118,30 @@ export function SharePreview() {
 							This space exists, but there is no public content
 							listed inside it right now.
 						</p>
+					</div>
+				)}
+				{activeModalCard && (
+					<div
+						className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+						onClick={() => setActiveModalCard(null)}
+					>
+						<div
+							className="relative w-full max-w-2xl max-h-[85vh] flex flex-col rounded-md border-4 border-black bg-white p-6 shadow-[10px_10px_0px_black]"
+							onClick={(e) => e.stopPropagation()}
+						>
+							<button
+								onClick={() => setActiveModalCard(null)}
+								className="absolute top-4 right-4 bg-[#F9A8D4] border-2 border-black px-2 py-1 text-xs font-black text-black rounded-sm shadow-[2px_2px_0px_black] hover:translate-y-px transition-all"
+							>
+								CLOSE [X]
+							</button>
+							<h2 className="text-2xl font-black text-black uppercase tracking-tight mb-4">
+								{activeModalCard.title}
+							</h2>
+							<div className="flex-1 overflow-y-auto text-sm text-neutral-800 font-medium whitespace-pre-wrap leading-relaxed border-t-2 border-black pt-4">
+								{activeModalCard.content}
+							</div>
+						</div>
 					</div>
 				)}
 			</div>
